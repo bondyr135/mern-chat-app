@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
+import bondMe from '../assets/BondMe.jpg'
 
 function Contacts({ contacts, currentUser, changeChat }) {
   const [ currentUserName, setCurrentUserName] = useState(undefined);
@@ -25,8 +26,9 @@ function Contacts({ contacts, currentUser, changeChat }) {
       currentUserImage && currentUserName && (
         <Container>
           <div className="brand">
-            <img src={logo} alt="logo" />
-            <h3>snappy</h3>
+            <img src={bondMe} alt="logo" />
+            {/* <img src={logo} alt="logo" /> */}
+            <h3>Bond me</h3>
           </div>
           <div className="contacts">
             {
@@ -70,9 +72,10 @@ const Container = styled.div`
     gap: 1rem;
     justify-content: center;
     img {
-      height: 2rem;
+      height: 5rem;
     }
     h3 {
+      padding-top: 10px;
       color: white;
       text-transform: uppercase;
     }
