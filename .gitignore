@@ -24,3 +24,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# phForReadme.png
+
+
+############# FOR PERSONAL USE
+How to run MongoDB server:
+With command line, go to C:\Users\Ravid\mongodb\bin>
+In there run mongod --dbpath C:\MongoDB\data\db\chat-app
