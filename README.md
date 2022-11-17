@@ -26,7 +26,7 @@ If you really feel the need...:
 2. Navigate with command line into `server` folder and `npm install` dependencies<br>
    2.1 Repeat `npm install` inside the `public` folder
 
-** Note: ** a database _must_ be installed and running for this app to run and work.
+#### Note: <br>a database _must_ be installed and running for this app to run and work.
 
 3.  Inside `/server/index.js` change `process.env.MONGO_URL` (inside mongoose connecting funtion) to appropriate address
 4.  Using the command line once inside the `server` folder, once inside the `public`, run `npm start`
