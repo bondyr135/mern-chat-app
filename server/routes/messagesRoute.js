@@ -3,9 +3,11 @@ const { addMessage, getAllMessages } = require("../controllers/messagesControlle
 const express = require("express");
 const router = express.Router();
 
-// For adding a message
+///////////// MESSAGE-RELATED ROUTES
+
+// FOR ADDING A MESSAGE
 router.post("/addmsg", addMessage);
-// For getting all shared messages
+// FOR RECEIVING ALL SHARED MESSAGES
 router.post("/getallmsgs", getAllMessages);
 
 module.exports = router;

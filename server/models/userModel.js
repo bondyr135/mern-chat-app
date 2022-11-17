@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+/////////////  HOW THE USER SHOULD LOOK LIKE
 const userSchema = mongoose.Schema({
   username: {
     type: String,

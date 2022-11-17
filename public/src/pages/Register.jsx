@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 
 import Logo from '../assets/logo.svg';
+import { toastOptions } from '../assets/toastOptions';
 import axios from 'axios';
 import { registerRoute } from '../utils/APIRoutes';
 
@@ -17,20 +18,14 @@ function Register() {
     confirmPassword: ""
   });
 
-  const toastOptions = {
-    position: 'bottom-right',
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: 'dark'
-  };
-
+  //////////  IF A USER IS CONNECTED, NAVIGATE TO THE CHAT
   useEffect(() => {
     if (localStorage.getItem('chat-app-user')) {
       navigate('/')
     }
   }, []);
-
+  
+  //////////  SUBMITTING FUNCTION
   const handelSubmit = async e => {
     e.preventDefault();
     if (handleValidation()) {
@@ -50,6 +45,7 @@ function Register() {
    }
   }
 
+  //////////  CREDENTIALS VALIDATOR
   const handleValidation = () => {
     const { username, email, password, confirmPassword } = values;
 

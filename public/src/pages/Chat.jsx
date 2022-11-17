@@ -17,11 +17,12 @@ function Chat() {
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  ///////////// ON LOADING: CHECKS WETHER THERE IS A CONNECTED USER
   useEffect(() => {
     const getCurrentUser = async () => {
-      if (!localStorage.getItem('chat-app-user')) {
+      if (!localStorage.getItem('chat-app-user')) { //  IF NO USER IS FOUND, REDIRECTS TO login PAGE
         navigate('/login');
-      } else {
+      } else { // IF A USER IS FOUND, SETS AS CURRENT
         setCurrentUser(await JSON.parse(localStorage.getItem('chat-app-user')));
         setIsLoaded(true);
       }
@@ -29,13 +30,15 @@ function Chat() {
     getCurrentUser();
   }, []);
 
+  // WHEN A USER IS CONNECTED
   useEffect(() => {
     if (currentUser) {
-      socket.current = io(host);
+      socket.current = io(host); 
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
 
+  // RETRIEVES ALL USERS IFF THE CURRENT USER HAS AN AVATAR PICTURE
   useEffect(() => {
     const getAllUsers = async () => {
       if (currentUser) {
@@ -50,6 +53,7 @@ function Chat() {
     getAllUsers();
   }, [currentUser]);
 
+  // WHEN CHANGING A CHAT-PARTNER
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   }
@@ -89,4 +93,4 @@ const Container = styled.div`
   }
 `;
 
-export default Chat
+export default Chat;

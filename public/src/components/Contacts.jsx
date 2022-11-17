@@ -8,6 +8,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
   const [ currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
+  ////////// SETS IMAGE AND NAME ACCORDING TO CURRENT USER
   useEffect(() => {
     if (currentUser) {
       setCurrentUserImage(currentUser.avatarImage);
@@ -15,6 +16,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
     }
   }, [currentUser]);
 
+  ////////// CHANGES CHAT PARTNER ON CLICK
   const changeCurrentChat = (contact, index) => {
     setCurrentSelected(index);
     changeChat(contact);
@@ -27,7 +29,6 @@ function Contacts({ contacts, currentUser, changeChat }) {
         <Container>
           <div className="brand">
             <img src={bondMe} alt="logo" />
-            {/* <img src={logo} alt="logo" /> */}
             <h3>Bond me</h3>
           </div>
           <div className="contacts">

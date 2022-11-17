@@ -1,18 +1,18 @@
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
-
+///////////// WHEN REGISTERING AS A NEW USER 
 module.exports.register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
 
     const usernameCheck = await Users.findOne({ username });
-    if (usernameCheck) {
+    if (usernameCheck) { // IF USERNAME ALREADY EXISTS
       return res.json({ msg: "Username is already in use", status: false })
     };
 
     const emailCheck = await Users.findOne({ email });
-    if (emailCheck) {
+    if (emailCheck) { //  IF CHOSEN E-MAIL IS ALREADY USER
       return res.json({ msg: "Email is already in use", status: false })
     }
 
@@ -24,6 +24,7 @@ module.exports.register = async (req, res, next) => {
       password: hashedPassword
     });
     delete newUser.password;
+
     return res.json({
       status: true,
       newUser
@@ -33,17 +34,18 @@ module.exports.register = async (req, res, next) => {
   }
 }
 
-//////////////////////////// LOGIN
+///////////// LOGIN AS A REGISTERED USER
 module.exports.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
     const user = await Users.findOne({ username });
-    if (!user) {
+    if (!user) { // USER NOT FOUND IN DB
       return res.json({ msg: "Incorrect username or password", status: false })
     }
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    if (!isPasswordValid) { // WRONG PASSWORD
       return res.json({ msg: "Incorrect username or password", status: false });
     }
     delete user.password;
@@ -57,7 +59,7 @@ module.exports.login = async (req, res, next) => {
   }
 }
 
-////////////////////////////////// SET AVATAR
+///////////// SET AVATAR
 module.exports.setAvatar = async (req, res, next) => {
   try {
     const userId = req.params.id;
@@ -72,7 +74,7 @@ module.exports.setAvatar = async (req, res, next) => {
   }
 }
 
-////////////////////////// GET ALL USERS
+///////////// GET ALL USERS
 module.exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await Users.find({

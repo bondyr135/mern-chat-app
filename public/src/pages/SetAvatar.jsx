@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 
 import loader from '../assets/loader.gif';
+import { toastOptions } from '../assets/toastOptions';
 import axios from 'axios';
 import { setAvatarRoute } from '../utils/APIRoutes';
 import { Buffer } from 'buffer';
@@ -17,23 +18,34 @@ function SetAvatar() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
-  const toastOptions = {
-    position: 'bottom-right',
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: 'dark'
-  };
-
+  //////////  ON LOADING: ASURES A USER IS REALLY CONNECTED
   useEffect(() => {
     const isLoggedIn = async () => {
       if (!localStorage.getItem("chat-app-user")) {
-        navigate("/login");
+        navigate("/login"); // IF NO USER IS CONNECTED, REDIRECTS TO LOGIN PAGE
       }
     }
     isLoggedIn()
   }, []);
+  
+  //////////  ON LOADING: FETCHES AND RENDERS ONLY 5 AVATAR OPTIONS
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = [];
+      for(let i = 0; i < 5; i++) {
+        const image = await axios.get(
+          `${api}/${Math.round(Math.random() * 1000)}`
+          );
+        const buffer = new Buffer(image.data);
+        data.push(buffer.toString("base64"))
+      }
+      setAvatars(data);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
 
+  ////////// WITH THE CHOOSING OF AN AVATAR
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
       toast.error("Please select an avatar", toastOptions);
@@ -52,24 +64,6 @@ function SetAvatar() {
       }
     }
   };
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = [];
-      for(let i = 0; i < 4; i++) {
-        const image = await axios.get(
-          `${api}/${Math.round(Math.random() * 1000)}`
-          );
-        const buffer = new Buffer(image.data);
-        data.push(buffer.toString("base64"))
-      }
-      setAvatars(data);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
 
 
   return (

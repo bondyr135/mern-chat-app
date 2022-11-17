@@ -23,18 +23,19 @@ function ChatContainer({ currentChat, currentUser, socket }) {
     currentChat && getMessages();
   }, [currentChat]);
 
-  // ON INCOMING OF A NEW MESSAGE
+  // ON LOAD: ON INCOMING OF A NEW MESSAGE
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", msg => {
         setArrivingMsg({
           fromSelf: false,
-          message: msg // MAYBE: message
+          message: msg 
         })
       })
     }
   }, []);
 
+  //////////  ON THE SENDING OF A NEW MESSAGE, UPDATES STATE
   useEffect(() => {
     arrivingMsg && setMessages(oldMessages => {
       return [...oldMessages, arrivingMsg]
@@ -51,7 +52,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
     await axios.post(sendMessageRoute, {
       from: currentUser._id,
       to: currentChat._id,
-      message: msg // NEEDS TO BE CHECKED AGAIN
+      message: msg 
     });
     socket.current.emit("send-msg", {
       to: currentChat._id,

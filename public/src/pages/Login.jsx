@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 
 import Logo from '../assets/logo.svg';
+import { toastOptions } from '../assets/toastOptions';
 import axios from 'axios';
 import { loginRoute } from '../utils/APIRoutes';
 
@@ -15,14 +16,7 @@ function Login() {
     password: ""
   });
 
-  const toastOptions = {
-    position: 'bottom-right',
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: 'dark'
-  };
-
+  //  IF THERE IS A CONNECTED USER, THERE IS NO NEED TO LOGIN
   useEffect(() => {
     if (localStorage.getItem('chat-app-user')) {
       navigate('/')

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+/////////////   HOW SHOULD THE MESSAGE LOOK LIKE
 const messageSchema = mongoose.Schema({
   message: {
     text: {
@@ -11,7 +13,7 @@ const messageSchema = mongoose.Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true // MAYBE SHOULD BE "USERS"
+    required: true
   }
 },
   {

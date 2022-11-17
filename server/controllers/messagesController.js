@@ -1,5 +1,7 @@
 const messagesModel = require('../models/messageModel');
 
+
+///////////// FOR SENDING\ RECEIVING A MESSAGE
 module.exports.addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
@@ -14,7 +16,7 @@ module.exports.addMessage = async (req, res, next) => {
     next(ex);
   }
 }
-/////////////////////
+/////////////  ON CONNECTING TO A CHAT, RETRIEVE ALL PAST MESSAGES BETWEEN THE TWO USERS
 module.exports.getAllMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
@@ -22,8 +24,7 @@ module.exports.getAllMessages = async (req, res, next) => {
       users: {
         $all: [from, to],
       }
-    })
-      .sort({ updatedAt: 1 });
+    }).sort({ updatedAt: 1 }); // SORT BY DATE, SO PRESENTED IN ORDER
 
     const projectedMessages = messages.map(msg => {
       return {

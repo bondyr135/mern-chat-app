@@ -9,16 +9,17 @@ export default function ChatInput({ handleSendMsg }) {
   const [ showEmojiPicker, setShowEmojiPicker ] = useState(false);
   const [ msg, setMsg ] = useState('');
 
+  
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   }
-
+  
   const handleEmojiClick = (emojiData, event) => {
     let message = msg;
     message += emojiData.emoji;
     setMsg(message)
   }
-
+  
   const handleMessageTyping = ({ target }) => {
     setMsg(target.value);
   }
@@ -142,6 +143,3 @@ const Container = styled.div`
     }
   }
 `;
-
-
-// emoji-picker-react
